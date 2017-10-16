@@ -1,8 +1,8 @@
 {
-    "name": "keboola/forecastio-augmentation",
+    "name": "keboola/darksyks-augmentation",
     "license": "MIT",
-    "description": "Keboola Forecast.io Weather Augmentation",
-    "keywords": ["keboola", "weather", "forecast.io"],
+    "description": "Keboola Darksky.net Weather Augmentation",
+    "keywords": ["keboola", "weather", "Darksky.net"],
     "authors": [
         {
             "name": "Jakub Matejka",

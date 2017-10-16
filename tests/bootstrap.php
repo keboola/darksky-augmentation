@@ -5,6 +5,6 @@
  * @author Jakub Matejka <jakub@keboola.com>
  */
 
-defined('FORECASTIO_KEY') || define('FORECASTIO_KEY', getenv('FORECASTIO_KEY') ? getenv('FORECASTIO_KEY') : 'forecastio_api_key');
+defined('DARKSKY_KEY') || define('DARKSKY_KEY', getenv('DARKSKY_KEY') ? getenv('DARKSKY_KEY') : 'darksky_api_key');
 
 require_once __DIR__ . '/../vendor/autoload.php';

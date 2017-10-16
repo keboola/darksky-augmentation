@@ -5,7 +5,7 @@
  * @author Jakub Matejka <jakub@keboola.com>
  */
 
-namespace Keboola\ForecastIoAugmentation\Tests;
+namespace Keboola\DarkSkyAugmentation\Tests;
 
 use Keboola\Temp\Temp;
 use Symfony\Component\Process\Process;
@@ -30,7 +30,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'parameters' => [
-                '#apiToken' => FORECASTIO_KEY,
+                '#apiToken' => DARKSKY_KEY,
                 'conditions' => ['windSpeed']
             ]
         ]));
