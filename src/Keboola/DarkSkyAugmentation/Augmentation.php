@@ -1,12 +1,5 @@
 <?php
-/**
- * @package forecastio-augmentation
- * @copyright Keboola
- * @author Jakub Matejka <jakub@keboola.com>
- */
-namespace Keboola\ForecastIoAugmentation;
-
-use Symfony\Component\Process\Process;
+namespace Keboola\DarkSkyAugmentation;
 
 class Augmentation
 {

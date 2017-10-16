@@ -37,9 +37,9 @@ if (!file_exists("{$arguments['data']}/out/tables")) {
 }
 
 try {
-    \Keboola\ForecastIoAugmentation\ParametersValidation::validate($config);
+    \Keboola\DarkSkyAugmentation\ParametersValidation::validate($config);
 
-    $app = new \Keboola\ForecastIoAugmentation\Augmentation(
+    $app = new \Keboola\DarkSkyAugmentation\Augmentation(
         $config['parameters']['#apiToken'],
         "{$arguments['data']}/out/tables/forecast.csv"
     );
@@ -53,12 +53,12 @@ try {
             "{$arguments['data']}/in/tables/{$table['destination']}",
             isset($config['parameters']['conditions']) ? $config['parameters']['conditions'] : [],
             isset($config['parameters']['units']) ? $config['parameters']['units'] : null,
-            isset($config['parameters']['granularity']) ? $config['parameters']['granularity'] : \Keboola\ForecastIoAugmentation\Augmentation::GRANULARITY_DAILY
+            isset($config['parameters']['granularity']) ? $config['parameters']['granularity'] : \Keboola\DarkSkyAugmentation\Augmentation::GRANULARITY_DAILY
         );
     }
 
     exit(0);
-} catch (\Keboola\ForecastIoAugmentation\Exception $e) {
+} catch (\Keboola\DarkSkyAugmentation\Exception $e) {
     print $e->getMessage();
     exit(1);
 } catch (\Exception $e) {

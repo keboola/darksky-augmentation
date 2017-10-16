@@ -5,9 +5,9 @@
  * @author Jakub Matejka <jakub@keboola.com>
  */
 
-namespace Keboola\ForecastIoAugmentation\Tests;
+namespace Keboola\DarkSkyAugmentation\Tests;
 
-use Keboola\ForecastIoAugmentation\UserStorage;
+use Keboola\DarkSkyAugmentation\UserStorage;
 use Symfony\Component\Yaml\Yaml;
 
 class UserStorageTest extends \PHPUnit_Framework_TestCase

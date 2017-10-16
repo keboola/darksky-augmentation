@@ -1,8 +1,8 @@
-forecastio-augmentation
+Darksky.net Augmentation
 ================
 
 KBC Docker app for getting weather conditions of given locations from 
-[Forecast.io API](https://developer.forecast.io/docs/v2). API access
+[darksky.net API](https://darksky.net/dev/docs. API access
 is provisioned by Keboola itself. Optionally it can get historical data. 
 You tell the app where it will find table columns with coordinates, 
 optionally column with dates, and what weather conditions you want to 
@@ -11,7 +11,7 @@ You can get daily or hourly conditions from the API.
 
 ## Status
 
-[![Build Status](https://travis-ci.org/keboola/forecastio-augmentation.svg)](https://travis-ci.org/keboola/forecastio-augmentation) 
+[![Build Status](https://travis-ci.org/keboola/darksky-augmentation.svg)](https://travis-ci.org/keboola/darksky-augmentation) 
 
 # Source data
 
@@ -46,7 +46,7 @@ You can get daily or hourly conditions from the API.
     }
   },
   "parameters": {
-    "#apiToken": "YOUR_FORECASTIO_TOKEN",
+    "#apiToken": "YOUR_DARKSKYNET_TOKEN",
     "conditions": [
       "temperature",
       "pressure",

@@ -4,19 +4,19 @@ services:
 
   app:
     build: .
-    image: keboola/forecastio-augmentation
+    image: keboola/darksky-augmentation
     tty: true
     stdin_open: true
     command: ./tests.sh
     environment:
-      - FORECASTIO_KEY
+      - DARKSKY_KEY
 
   dev:
-    image: keboola/forecastio-augmentation
+    image: keboola/darksky-augmentation
     tty: true
     stdin_open: true
     command: /bin/bash
     volumes:
       - .:/code
     environment:
-      - FORECASTIO_KEY
+      - DARKSKY_KEY

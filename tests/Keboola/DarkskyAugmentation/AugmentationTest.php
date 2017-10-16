@@ -5,11 +5,10 @@
  * @author Jakub Matejka <jakub@keboola.com>
  */
 
-namespace Keboola\ForecastIoAugmentation\Tests;
+namespace Keboola\DarkSkyAugmentation\Tests;
 
-use Doctrine\DBAL\Connection;
 use Keboola\Csv\CsvFile;
-use Keboola\ForecastIoAugmentation\Augmentation;
+use Keboola\DarkSkyAugmentation\Augmentation;
 use Keboola\Temp\Temp;
 
 class AugmentationTest extends \PHPUnit_Framework_TestCase
@@ -27,8 +26,8 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
         $this->temp = new Temp();
         $this->temp->initRunFolder();
 
-        $this->app = new \Keboola\ForecastIoAugmentation\Augmentation(
-            FORECASTIO_KEY,
+        $this->app = new \Keboola\DarkSkyAugmentation\Augmentation(
+            DARKSKY_KEY,
             $this->temp->getTmpFolder()."/$outputTable"
         );
 
