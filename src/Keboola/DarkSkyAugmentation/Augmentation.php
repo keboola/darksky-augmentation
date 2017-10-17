@@ -13,20 +13,23 @@ class Augmentation
     const COL_LONGITUDE = 1;
     const COL_DATE = 2;
 
-    protected $actualTime;
+    private $actualTime;
 
     /** @var UserStorage */
-    protected $userStorage;
+    private $userStorage;
 
     /** @var \Forecast */
-    protected $api;
+    private $api;
 
-    public function __construct($apiKey, $outputFile)
+    private $usageFile;
+
+    public function __construct($apiKey, $outputFile, $usageFile)
     {
         $this->api = new \Forecast($apiKey, 10);
         $this->actualTime = date('Y-m-d\TH:i:s');
         
         $this->userStorage = new UserStorage($outputFile);
+        $this->usageFile = $usageFile;
     }
 
 
@@ -37,6 +40,7 @@ class Augmentation
         $granularity = self::GRANULARITY_DAILY
     ) {
         $csvFile = new \Keboola\Csv\CsvFile($dataFile);
+        $apiCallsCount = 0;
 
         // query for each 50 lines from the file
         $countInBatch = 50;
@@ -47,6 +51,7 @@ class Augmentation
             }
             try {
                 $queries[] = $this->buildQuery($line, $units, $granularity);
+                $apiCallsCount++;
             } catch (Exception $e) {
                 error_log($e->getMessage());
                 continue;
@@ -64,6 +69,7 @@ class Augmentation
             // run the rest of lines above the highest multiple of 50
             $this->processBatch($queries, $conditions, $granularity);
         }
+        $this->writeUsage($apiCallsCount);
     }
 
     public function processBatch($queries, array $conditions, $granularity)
@@ -98,7 +104,7 @@ class Augmentation
         }
     }
 
-    protected function saveData($latitude, $longitude, $time, $data, $conditions)
+    private function saveData($latitude, $longitude, $time, $data, $conditions)
     {
         unset($data['time']);
         foreach ($data as $key => $value) {
@@ -118,7 +124,7 @@ class Augmentation
     /**
      * Basically analyze validity of coordinates and date
      */
-    protected function buildQuery($q, $units, $granularity)
+    private function buildQuery($q, $units, $granularity)
     {
         if ($q[self::COL_LATITUDE] === null || $q[self::COL_LONGITUDE] === null || (!$q[self::COL_LATITUDE] && !$q[self::COL_LONGITUDE]) || !is_numeric($q[self::COL_LATITUDE]) || !is_numeric($q[self::COL_LONGITUDE])) {
             throw new Exception("Value '{$q[self::COL_LATITUDE]} {$q[self::COL_LONGITUDE]}' is not valid coordinate");
@@ -155,5 +161,15 @@ class Augmentation
         }
 
         return $result;
+    }
+
+    private function writeUsage($apiCallsCount)
+    {
+        file_put_contents($this->usageFile, json_encode([
+            [
+                "metric" => "API Calls",
+                "value" => (int) $apiCallsCount,
+            ]
+        ]));
     }
 }

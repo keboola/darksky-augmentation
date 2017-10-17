@@ -18,20 +18,24 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
     /** @var  Augmentation */
     protected $app;
     protected $outputFile;
+    protected $usageFile;
 
     public function setUp()
     {
         $outputTable = 't' . uniqid();
+        $usageFile = 'usage.json';
 
         $this->temp = new Temp();
         $this->temp->initRunFolder();
 
         $this->app = new \Keboola\DarkSkyAugmentation\Augmentation(
             DARKSKY_KEY,
-            $this->temp->getTmpFolder()."/$outputTable"
+            $this->temp->getTmpFolder() . "/$outputTable",
+            $this->temp->getTmpFolder() . "/$usageFile"
         );
 
         $this->outputFile = "{$this->temp->getTmpFolder()}/$outputTable";
+        $this->usageFile = "{$this->temp->getTmpFolder()}/$usageFile";
         copy(__DIR__ . '/data.csv', $this->temp->getTmpFolder() . '/data1.csv');
     }
 
@@ -53,6 +57,12 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals(4, $location1Count);
         $this->assertEquals(2, $location2Count);
+
+        $usage = json_decode(file_get_contents($this->usageFile));
+        $this->assertCount(1, $usage);
+        $apiCallsMetric = reset($usage);
+        $this->assertEquals('API Calls', $apiCallsMetric->metric);
+        $this->assertEquals(3, $apiCallsMetric->value);
     }
 
     public function testAugmentationForDefinedDatesWithDailyHourly()
@@ -78,5 +88,11 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertEquals(96, $location1Count);
         $this->assertEquals(48, $location2Count);
+
+        $usage = json_decode(file_get_contents($this->usageFile));
+        $this->assertCount(1, $usage);
+        $apiCallsMetric = reset($usage);
+        $this->assertEquals('API Calls', $apiCallsMetric->metric);
+        $this->assertEquals(3, $apiCallsMetric->value);
     }
 }
