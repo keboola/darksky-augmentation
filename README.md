@@ -2,8 +2,7 @@ Darksky.net Augmentation
 ================
 
 KBC Docker app for getting weather conditions of given locations from 
-[darksky.net API](https://darksky.net/dev/docs. API access
-is provisioned by Keboola itself. Optionally it can get historical data. 
+[darksky.net API](https://darksky.net/dev/docs. Optionally it can get historical data. 
 You tell the app where it will find table columns with coordinates, 
 optionally column with dates, and what weather conditions you want to 
 know about them. 
