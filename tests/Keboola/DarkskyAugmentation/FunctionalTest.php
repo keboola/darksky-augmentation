@@ -48,5 +48,12 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->assertFileExists("{$temp->getTmpFolder()}/out/tables/forecast.csv");
+        $this->assertFileExists("{$temp->getTmpFolder()}/out/usage.json");
+
+        $usage = json_decode(file_get_contents("{$temp->getTmpFolder()}/out/usage.json"));
+        $this->assertCount(1, $usage);
+        $apiCallsMetric = reset($usage);
+        $this->assertEquals('API Calls', $apiCallsMetric->metric);
+        $this->assertEquals(3, $apiCallsMetric->value);
     }
 }
