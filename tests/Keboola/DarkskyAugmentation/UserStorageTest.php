@@ -1,14 +1,7 @@
 <?php
-/**
- * @package forecastio-augmentation
- * @copyright 2014 Keboola
- * @author Jakub Matejka <jakub@keboola.com>
- */
-
 namespace Keboola\DarkSkyAugmentation\Tests;
 
 use Keboola\DarkSkyAugmentation\UserStorage;
-use Symfony\Component\Yaml\Yaml;
 
 class UserStorageTest extends \PHPUnit_Framework_TestCase
 {
@@ -41,10 +34,13 @@ class UserStorageTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->assertTrue(file_exists("{$temp->getTmpFolder()}/$table.manifest"));
-        $manifest = Yaml::parse(file_get_contents("{$temp->getTmpFolder()}/$table.manifest"));
+        $manifest = json_decode(file_get_contents("{$temp->getTmpFolder()}/$table.manifest"), true);
         $this->assertArrayHasKey('incremental', $manifest);
         $this->assertEquals(true, $manifest['incremental']);
         $this->assertArrayHasKey('primary_key', $manifest);
         $this->assertEquals(["primary"], $manifest['primary_key']);
+        $this->assertArrayHasKey('column_metadata', $manifest);
+        $this->assertInternalType('array', $manifest['column_metadata']);
+        $this->assertCount(6, $manifest['column_metadata']);
     }
 }
