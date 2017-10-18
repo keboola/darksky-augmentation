@@ -92,7 +92,7 @@ You can get daily or hourly conditions from the API.
   - **apparentTemperature**: A numerical value representing the apparent (or “feels like”) temperature at the given time in degrees Celsius/Fahrenheit
       
 # Output
-New bucket is created for each configuration with one table `forecast`. The table will have columns 
+New bucket is created for each configuration with one table `weather`. The table will have columns 
 `primary,latitude,longitude,date,key,value` and is filled incrementally. Weather conditions are saved as key-value pairs: 
 
 - **primary** - hash of latitude, longitude, date and key used for incremental saving of data

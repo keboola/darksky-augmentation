@@ -47,7 +47,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
             $this->fail($process->getOutput().PHP_EOL.$process->getErrorOutput());
         }
 
-        $this->assertFileExists("{$temp->getTmpFolder()}/out/tables/forecast.csv");
+        $this->assertFileExists("{$temp->getTmpFolder()}/out/tables/weather.csv");
         $this->assertFileExists("{$temp->getTmpFolder()}/out/usage.json");
 
         $usage = json_decode(file_get_contents("{$temp->getTmpFolder()}/out/usage.json"));

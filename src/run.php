@@ -41,7 +41,7 @@ try {
 
     $app = new \Keboola\DarkSkyAugmentation\Augmentation(
         $config['parameters']['#apiToken'],
-        "{$arguments['data']}/out/tables/forecast.csv",
+        "{$arguments['data']}/out/tables/weather.csv",
         "{$arguments['data']}/out/usage.json"
     );
 
