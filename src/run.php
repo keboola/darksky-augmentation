@@ -60,10 +60,10 @@ try {
 
     exit(0);
 } catch (\Keboola\DarkSkyAugmentation\Exception $e) {
-    print $e->getMessage();
+    error_log($e->getMessage());
     exit(1);
 } catch (\Exception $e) {
-    print $e->getMessage();
+    error_log($e->getMessage());
     print $e->getTraceAsString();
     exit(2);
 }

@@ -48,6 +48,7 @@ class Augmentation
         foreach ($csvFile as $row => $line) {
             if ($row == 0) {
                 $this->validateHeaderRow($line);
+                continue;
             }
             try {
                 $queries[] = $this->buildQuery($line, $units, $granularity);

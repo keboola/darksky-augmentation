@@ -87,6 +87,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         $process = new Process("php ".__DIR__."/../../../src/run.php --data=".$temp->getTmpFolder());
         $process->setTimeout(null);
         $process->run();
+        var_dump($process->getOutput(), $process->getErrorOutput());
         $this->assertEquals(1, $process->getExitCode());
 
     }
