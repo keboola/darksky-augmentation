@@ -9,6 +9,8 @@ namespace Keboola\DarkSkyAugmentation\Tests;
 
 use Keboola\Csv\CsvFile;
 use Keboola\DarkSkyAugmentation\Augmentation;
+use Keboola\DarkSkyAugmentation\Exception;
+use Keboola\DarkSkyAugmentation\InvalidApiKeyException;
 use Keboola\Temp\Temp;
 
 class AugmentationTest extends \PHPUnit_Framework_TestCase
@@ -95,4 +97,34 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('API Calls', $apiCallsMetric->metric);
         $this->assertEquals(3, $apiCallsMetric->value);
     }
+
+    public function testInvalidTokenShouldThrowUserError()
+    {
+        $outputTable = 't' . uniqid();
+        $usageFile = 'usage.json';
+
+        $this->temp = new Temp();
+        $this->temp->initRunFolder();
+
+        $app = new \Keboola\DarkSkyAugmentation\Augmentation(
+            'INVALID_KEY',
+            $this->temp->getTmpFolder() . "/$outputTable",
+            $this->temp->getTmpFolder() . "/$usageFile"
+        );
+
+        $this->outputFile = "{$this->temp->getTmpFolder()}/$outputTable";
+        $this->usageFile = "{$this->temp->getTmpFolder()}/$usageFile";
+        copy(__DIR__ . '/data.csv', $this->temp->getTmpFolder() . '/data1.csv');
+
+        try {
+            $app->process(
+                $this->temp->getTmpFolder() . '/data1.csv',
+                ['temperature', 'windSpeed']
+            );
+            $this->fail('Exception should be thrown');
+        } catch (Exception $e) {
+            $this->assertInstanceOf('Keboola\DarkSkyAugmentation\InvalidApiKeyException', $e);
+        }
+    }
+
 }

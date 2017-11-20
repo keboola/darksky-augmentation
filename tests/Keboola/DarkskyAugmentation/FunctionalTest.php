@@ -56,4 +56,38 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('API Calls', $apiCallsMetric->metric);
         $this->assertEquals(3, $apiCallsMetric->value);
     }
+
+    public function testInvalidApiTokenShouldReturnUserError()
+    {
+        $temp = new Temp();
+        $temp->initRunFolder();
+
+        file_put_contents($temp->getTmpFolder() . '/config.json', json_encode([
+            'storage' => [
+                'input' => [
+                    'tables' => [
+                        [
+                            'source' => 'in.c-main.coordinates',
+                            'destination' => 'coordinates.csv'
+                        ]
+                    ]
+                ],
+            ],
+            'parameters' => [
+                '#apiToken' => 'INVALID_TOKEN',
+                'conditions' => ['windSpeed']
+            ]
+        ]));
+
+        mkdir($temp->getTmpFolder().'/in');
+        mkdir($temp->getTmpFolder().'/in/tables');
+        copy(__DIR__ . '/data.csv', $temp->getTmpFolder().'/in/tables/coordinates.csv');
+        copy(__DIR__ . '/data.csv.manifest', $temp->getTmpFolder().'/in/tables/coordinates.csv.manifest');
+
+        $process = new Process("php ".__DIR__."/../../../src/run.php --data=".$temp->getTmpFolder());
+        $process->setTimeout(null);
+        $process->run();
+        $this->assertEquals(1, $process->getExitCode());
+
+    }
 }
