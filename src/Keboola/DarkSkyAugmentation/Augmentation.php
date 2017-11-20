@@ -47,7 +47,7 @@ class Augmentation
         $queries = [];
         foreach ($csvFile as $row => $line) {
             if ($row == 0) {
-                continue;
+                $this->validateHeaderRow($line);
             }
             try {
                 $queries[] = $this->buildQuery($line, $units, $granularity);
@@ -70,6 +70,17 @@ class Augmentation
             $this->processBatch($queries, $conditions, $granularity);
         }
         $this->writeUsage($apiCallsCount);
+    }
+
+    public function validateHeaderRow($row)
+    {
+        if (count($row) >= 2) {
+            return;
+        }
+
+        throw new Exception(
+            sprintf('Invalid input format. At least two columns (latitude, longitude) expected. Only one column (%s) provided.', reset($row))
+        );
     }
 
     public function processBatch($queries, array $conditions, $granularity)

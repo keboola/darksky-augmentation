@@ -98,6 +98,31 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, $apiCallsMetric->value);
     }
 
+    /**
+     * @expectedException Exception
+     */
+    public function testInvalidInputCsvShouldThrowUserError()
+    {
+        $outputTable = 't' . uniqid();
+        $usageFile = 'usage.json';
+
+        $this->temp = new Temp();
+        $this->temp->initRunFolder();
+
+        $this->app = new \Keboola\DarkSkyAugmentation\Augmentation(
+            DARKSKY_KEY,
+            $this->temp->getTmpFolder() . "/$outputTable",
+            $this->temp->getTmpFolder() . "/$usageFile"
+        );
+
+        $this->outputFile = "{$this->temp->getTmpFolder()}/$outputTable";
+        $this->usageFile = "{$this->temp->getTmpFolder()}/$usageFile";
+        copy(__DIR__ . '/invalid-data.csv', $this->temp->getTmpFolder() . '/data1.csv');
+
+
+        $this->app->process($this->temp->getTmpFolder() . '/data1.csv', ['temperatureMax', 'windSpeed']);
+    }
+
     public function testInvalidTokenShouldThrowUserError()
     {
         $outputTable = 't' . uniqid();
