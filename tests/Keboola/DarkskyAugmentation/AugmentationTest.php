@@ -151,5 +151,4 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('Keboola\DarkSkyAugmentation\InvalidApiKeyException', $e);
         }
     }
-
 }
