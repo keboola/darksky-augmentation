@@ -128,6 +128,8 @@ class Forecast
         $err = 'At least one of the API responses was empty.';
         trigger_error(__FILE__ . ':L' . __LINE__ . ": $err\n");
         $nice_responses[] = false;
+      } elseif (trim($response) === 'Forbidden') {
+          throw new \Keboola\DarkSkyAugmentation\InvalidApiKeyException('Invalid API Key used.');
       } else {
         $decoded = json_decode($response);
         if ($decoded === null) {
