@@ -93,6 +93,10 @@ class Augmentation
                 error_log("Getting conditions for {$data['coords']} on {$data['time']} failed: {$data['error']}");
                 continue;
             }
+            if (empty($data['daily']) && empty($data['hourly'])) {
+                error_log("No data for lat: {$data['latitude']} long: {$data['longitude']}");
+                continue;
+            }
             if ($granularity === self::GRANULARITY_DAILY) {
                 $dailyData = (array) $data['daily']->data[0];
                 $this->saveData(
