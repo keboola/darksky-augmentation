@@ -1,22 +1,7 @@
-version: "2"
-
+version: '2'
 services:
-
-  app:
-    build: .
-    image: keboola/darksky-augmentation
-    tty: true
-    stdin_open: true
-    command: ./tests.sh
-    environment:
-      - DARKSKY_KEY
-
   dev:
-    image: keboola/darksky-augmentation
-    tty: true
-    stdin_open: true
-    command: /bin/bash
+    build: .
     volumes:
-      - .:/code
-    environment:
-      - DARKSKY_KEY
+      - ./:/code
+      - ./data:/data

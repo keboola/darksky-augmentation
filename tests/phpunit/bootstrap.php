@@ -1,19 +1,7 @@
 <?php
-/**
- * @package forecastio-augmentation
- * @copyright 2014 Keboola
- * @author Jakub Matejka <jakub@keboola.com>
- */
 
-defined('DARKSKY_KEY') || define('DARKSKY_KEY', getenv('DARKSKY_KEY') ? getenv('DARKSKY_KEY') : 'darksky_api_key');
+declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+defined('DARKSKY_KEY') || define('DARKSKY_KEY', getenv('DARKSKY_KEY') ?? 'darksky_api_key');
 
-set_error_handler(
-    function ($errno, $errstr, $errfile, $errline, array $errcontext) {
-        if (0 === error_reporting()) {
-            return false;
-        }
-        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-    }
-);
+require_once __DIR__ . '/../../vendor/autoload.php';
