@@ -12,9 +12,9 @@
          bootstrap="tests/bootstrap.php">
 
     <testsuite name="main">
-        <file>tests/Keboola/DarkSkyAugmentation/UserStorageTest.php</file>
-        <file>tests/Keboola/DarkSkyAugmentation/AugmentationTest.php</file>
-        <file>tests/Keboola/DarkSkyAugmentation/FunctionalTest.php</file>
+        <file>tests/Keboola/DarkskyAugmentation/UserStorageTest.php</file>
+        <file>tests/Keboola/DarkskyAugmentation/AugmentationTest.php</file>
+        <file>tests/Keboola/DarkskyAugmentation/FunctionalTest.php</file>
     </testsuite>
 
     <filter>

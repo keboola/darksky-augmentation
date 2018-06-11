@@ -11,7 +11,7 @@ before_script:
   - docker-compose build
 
 script:
-  - docker-compose run --rm app ./tests.sh
+  - docker-compose run --rm -e DARKSKY_KEY app ./tests.sh
 
 after_success:
   - docker images

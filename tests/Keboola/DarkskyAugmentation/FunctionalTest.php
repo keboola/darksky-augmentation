@@ -54,7 +54,7 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $usage);
         $apiCallsMetric = reset($usage);
         $this->assertEquals('API Calls', $apiCallsMetric->metric);
-        $this->assertEquals(3, $apiCallsMetric->value);
+        $this->assertEquals(4, $apiCallsMetric->value);
     }
 
     public function testInvalidApiTokenShouldReturnUserError()
