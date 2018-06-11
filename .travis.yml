@@ -9,7 +9,7 @@ before_script:
   - export APP_IMAGE=keboola-component
   - docker -v
   - docker build -t $APP_IMAGE .
-  - docker run $APP_IMAGE -e DARKSKY_KEY composer ci
+  - docker run -e DARKSKY_KEY $APP_IMAGE composer ci
 
   # push test image to ECR
   - docker pull quay.io/keboola/developer-portal-cli-v2:latest
@@ -34,5 +34,5 @@ deploy:
 
 notifications:
   slack:
-    secure: PwqOh1lRxps0xsnaWhxJxotCsazQsSSRyXlcy16CPCq5uVB1hwj8q1nYgK+49mrFtM0q0iQCsUpyu2YeTcuemHdZ8ScyrIPmVpAl20R/O2QcqLUKhzfnGAKe+QW9e4/DkDf9al/4y2OGTg+AXx7e1xajXtHqv0MkqbyI5QsKIMyKwrqg3JH1jtA58IqDg3yXC0+/+rKjYK08ldmt544EkgMsxuF01Lu8RWK6eELlq/7FqQqgVuZla2q2XgDuc1NCiC9eSFfAXua7oUv0rye7/QxGxqRHyLUUfo24gpt9gGEzY1oryBwfuPK1qfrCbFsxtGuMPC0zDfHOHDxuKbPHmId20aRzy4bHtHaHrZeYTQbrRVWU6on0Zo/coe/rjb0aZbSOxMV5V0o3xQ+3K8IxSAh3QM172NT1BW5uKwoL28lZPNSBTbeFMvXLeMvFJCZbqhTe3RC1JxjK3sGD/flUUxg4f2MD46jaEMdJcfc+nGng5bs++cQ42TvEfgijt0Z78Xj+s5kk4vJb/or7ciabSX9NbjFrnd7odw9klRNGvJ4DzmRw8TAyjSMkO6VFzSgxh3CmBTL1rqGBQtM+bZtrVH9GmANLr6oq+yymAJzRHUS0TNipAEKEQ8UjQmFy0ZgnfxKu4dUUhCOEm68Mt+Xtcw/amdq/1Ickvh4iki2H5pg=
+    secure: I2xp4MCk2SrW858O6gas2iVaJveZeOraFqPIbHRYS4hxSYXgkl9tWnUQDO1gfpD02NhI9cOn4ImAz0w6wynLDuModjNvf0kQIf0Ws29Q70z+hu60Qw6KSybr4S3cVPuNhOsl9aXQcrglCy/o6PBcTs0UoN0LlrOwItMvCTTE5BYIaVenYBOkCmTvjq3oXujTAKu9F+k9oqW0lKBKifqenLAMKPiCuqCxJQczoCEl48zQDFi9zJnxSm5Iyqs66Ps8k5is/sQkStkk7a2PHLT4ebfChX2TvmxVViWkx3Yw531cyZFjjijP9UBzmZNUelXfd2pIJeLPaYak6zLXHqwlHUw2XjffHPMICrG6PBXk2gzNXLGtcs8ROq350xt+834QLe+wik1ClNz7SV4V8ejsgrEDbF+Eyc68WrsM9BL/4X/0O1YhbQ1f/dj8DS6SwhX85L6FBvIWEq1gi00nM9ixQPD4IwgUQGdLsHU7EVs+ldmtgmOvrg7he8YExCk+3KVtsVLbydm9xf1/mMLYpYNLYQALwhbc7miu4NUxwI5aBT7gjzs42EZ2PHCUdm+aAKIsB/BLmz2h7ZqC6idFE8c0hc0dLdz6RLoEoO6LacSCpDBqh0OcF5Xi8P4yrUGpB1UOOnRYv5T6qgrurd7QTNN/XEy5W5CFELEn8KHHmQnozrQ=
   email: false
