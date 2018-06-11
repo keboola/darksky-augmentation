@@ -165,9 +165,6 @@ class Augmentation
 
         if (!empty($q[self::COL_DATE])) {
             if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $q[self::COL_DATE])) {
-                if ($q[self::COL_DATE] > date('Y-m-d')) {
-                    throw new Exception("Date '{$q[self::COL_DATE]}' for coordinate '{$q[self::COL_LATITUDE]} {$q[self::COL_LONGITUDE]}' lies in future");
-                }
                 $result['time'] = "{$q[self::COL_DATE]}T12:00:00";
             } else {
                 throw new Exception("Date '{$q[self::COL_DATE]}' for coordinate '{$q[self::COL_LATITUDE]} {$q[self::COL_LONGITUDE]}' is not valid");
