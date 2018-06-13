@@ -1,9 +1,4 @@
 <?php
-/**
- * @package forecastio-augmentation
- * @copyright 2014 Keboola
- * @author Jakub Matejka <jakub@keboola.com>
- */
 
 namespace Keboola\DarkSkyAugmentation\Tests;
 
@@ -12,8 +7,9 @@ use Keboola\DarkSkyAugmentation\Augmentation;
 use Keboola\DarkSkyAugmentation\Exception;
 use Keboola\DarkSkyAugmentation\InvalidApiKeyException;
 use Keboola\Temp\Temp;
+use PHPUnit\Framework\TestCase;
 
-class AugmentationTest extends \PHPUnit_Framework_TestCase
+class AugmentationTest extends TestCase
 {
     /** @var  Temp */
     protected $temp;
@@ -38,7 +34,7 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
 
         $this->outputFile = "{$this->temp->getTmpFolder()}/$outputTable";
         $this->usageFile = "{$this->temp->getTmpFolder()}/$usageFile";
-        copy(__DIR__ . '/data.csv', $this->temp->getTmpFolder() . '/data1.csv');
+        copy(__DIR__ . '/data/data.csv', $this->temp->getTmpFolder() . '/data1.csv');
     }
 
     public function testAugmentationForDefinedDatesWithDailyGranularity()
@@ -117,7 +113,7 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
 
         $this->outputFile = "{$this->temp->getTmpFolder()}/$outputTable";
         $this->usageFile = "{$this->temp->getTmpFolder()}/$usageFile";
-        copy(__DIR__ . '/invalid-data.csv', $this->temp->getTmpFolder() . '/data1.csv');
+        copy(__DIR__ . '/data/invalid-data.csv', $this->temp->getTmpFolder() . '/data1.csv');
 
 
         $this->app->process($this->temp->getTmpFolder() . '/data1.csv', ['temperatureMax', 'windSpeed']);
@@ -139,7 +135,7 @@ class AugmentationTest extends \PHPUnit_Framework_TestCase
 
         $this->outputFile = "{$this->temp->getTmpFolder()}/$outputTable";
         $this->usageFile = "{$this->temp->getTmpFolder()}/$usageFile";
-        copy(__DIR__ . '/data.csv', $this->temp->getTmpFolder() . '/data1.csv');
+        copy(__DIR__ . '/data/data.csv', $this->temp->getTmpFolder() . '/data1.csv');
 
         try {
             $app->process(

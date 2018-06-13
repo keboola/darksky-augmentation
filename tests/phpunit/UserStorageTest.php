@@ -2,8 +2,9 @@
 namespace Keboola\DarkSkyAugmentation\Tests;
 
 use Keboola\DarkSkyAugmentation\UserStorage;
+use PHPUnit\Framework\TestCase;
 
-class UserStorageTest extends \PHPUnit_Framework_TestCase
+class UserStorageTest extends TestCase
 {
 
     public function testSave()

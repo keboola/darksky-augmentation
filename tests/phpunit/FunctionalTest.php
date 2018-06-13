@@ -1,16 +1,12 @@
 <?php
-/**
- * @package forecastio-augmentation
- * @copyright 2014 Keboola
- * @author Jakub Matejka <jakub@keboola.com>
- */
 
 namespace Keboola\DarkSkyAugmentation\Tests;
 
 use Keboola\Temp\Temp;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
-class FunctionalTest extends \PHPUnit_Framework_TestCase
+class FunctionalTest extends TestCase
 {
 
     public function testFunctional()
@@ -37,10 +33,10 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
 
         mkdir($temp->getTmpFolder().'/in');
         mkdir($temp->getTmpFolder().'/in/tables');
-        copy(__DIR__ . '/data.csv', $temp->getTmpFolder().'/in/tables/coordinates.csv');
-        copy(__DIR__ . '/data.csv.manifest', $temp->getTmpFolder().'/in/tables/coordinates.csv.manifest');
+        copy(__DIR__ . '/data/data.csv', $temp->getTmpFolder().'/in/tables/coordinates.csv');
+        copy(__DIR__ . '/data/data.csv.manifest', $temp->getTmpFolder().'/in/tables/coordinates.csv.manifest');
 
-        $process = new Process("php ".__DIR__."/../../../src/run.php --data=".$temp->getTmpFolder());
+        $process = new Process("php ".__DIR__."/../../src/run.php --data=".$temp->getTmpFolder());
         $process->setTimeout(null);
         $process->run();
         if (!$process->isSuccessful()) {
@@ -81,8 +77,8 @@ class FunctionalTest extends \PHPUnit_Framework_TestCase
 
         mkdir($temp->getTmpFolder().'/in');
         mkdir($temp->getTmpFolder().'/in/tables');
-        copy(__DIR__ . '/data.csv', $temp->getTmpFolder().'/in/tables/coordinates.csv');
-        copy(__DIR__ . '/data.csv.manifest', $temp->getTmpFolder().'/in/tables/coordinates.csv.manifest');
+        copy(__DIR__ . '/data/data.csv', $temp->getTmpFolder().'/in/tables/coordinates.csv');
+        copy(__DIR__ . '/data/data.csv.manifest', $temp->getTmpFolder().'/in/tables/coordinates.csv.manifest');
 
         $process = new Process("php ".__DIR__."/../../../src/run.php --data=".$temp->getTmpFolder());
         $process->setTimeout(null);
