@@ -63,6 +63,33 @@ class AugmentationTest extends TestCase
         $this->assertEquals(4, $apiCallsMetric->value);
     }
 
+    public function testAugmentationForFutureDay()
+    {
+        $future = date('Y-m-d', strtotime('+2 day'));
+        $rows = [
+            'lat,lon,time',
+            '"49.191","16.611","' . $future .  '"',
+        ];
+        file_put_contents($this->temp->getTmpFolder() . '/data1.csv', implode("\n", $rows));
+        $this->app->process($this->temp->getTmpFolder() . '/data1.csv', ['temperatureMax', 'windSpeed']);
+        $this->assertFileExists($this->outputFile);
+        $data = iterator_to_array(new CsvFile($this->outputFile));
+        $this->assertCount(3, $data);
+        $locationCount = 0;
+        foreach ($data as $row) {
+            if ($row[1] == 49.191 && $row[2] == 16.611) {
+                $locationCount++;
+            }
+        }
+        $this->assertEquals(2, $locationCount);
+
+        $usage = json_decode(file_get_contents($this->usageFile));
+        $this->assertCount(1, $usage);
+        $apiCallsMetric = reset($usage);
+        $this->assertEquals('API Calls', $apiCallsMetric->metric);
+        $this->assertEquals(1, $apiCallsMetric->value);
+    }
+
     public function testAugmentationForDefinedDatesWithDailyHourly()
     {
         $this->app->process(
