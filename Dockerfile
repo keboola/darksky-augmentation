@@ -27,4 +27,4 @@ COPY . /code/
 # run normal composer - all deps are cached already
 RUN composer install $COMPOSER_FLAGS
 
-CMD ["php", "/code/src/run.php"]
+CMD ["php", "/code/src/run.php", "--data=/data"]
