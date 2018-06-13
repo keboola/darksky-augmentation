@@ -80,7 +80,7 @@ class FunctionalTest extends TestCase
         copy(__DIR__ . '/data/data.csv', $temp->getTmpFolder().'/in/tables/coordinates.csv');
         copy(__DIR__ . '/data/data.csv.manifest', $temp->getTmpFolder().'/in/tables/coordinates.csv.manifest');
 
-        $process = new Process("php ".__DIR__."/../../../src/run.php --data=".$temp->getTmpFolder());
+        $process = new Process("php ".__DIR__."/../../src/run.php --data=".$temp->getTmpFolder());
         $process->setTimeout(null);
         $process->run();
         var_dump($process->getOutput(), $process->getErrorOutput());
