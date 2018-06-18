@@ -62,8 +62,16 @@ try {
 } catch (\Keboola\DarkSkyAugmentation\Exception $e) {
     error_log($e->getMessage());
     exit(1);
+} catch (\ErrorException $e) {
+    if (strpos($e->getMessage(), 'daily usage limit exceeded') !== false) {
+        error_log("Daily usage limit exceeded, check your Dark Sky API account settings for raising the limit.");
+        exit(1);
+    }
+    error_log($e->getMessage());
+    error_log($e->getTraceAsString());
+    exit(2);
 } catch (\Exception $e) {
     error_log($e->getMessage());
-    print $e->getTraceAsString();
+    error_log($e->getTraceAsString());
     exit(2);
 }

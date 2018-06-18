@@ -133,7 +133,7 @@ class Forecast
       } else {
         $decoded = json_decode($response);
         if ($decoded === null) {
-          $err = 'Cannot decode one of the API responses.';
+          $err = json_last_error_msg() . ' ' . $response;
           trigger_error(__FILE__ . ':L' . __LINE__ . ": $err\n");
           $nice_responses[] = false;
         } else {
