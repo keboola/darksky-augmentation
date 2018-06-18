@@ -90,7 +90,12 @@ class Augmentation
             /** @var \ForecastResponse $r */
             $data = (array) $r->getRawData();
             if (isset($data['error'])) {
-                error_log("Getting conditions for {$data['coords']} on {$data['time']} failed: {$data['error']}");
+                error_log(sprintf(
+                    "Getting conditions for coordinates '%s' on date '%s' failed: %s",
+                    $data['coords'] ?? '',
+                    $data['time'] ?? '',
+                    $data['error']
+                ));
                 continue;
             }
             if (empty($data['daily']) && empty($data['hourly'])) {
