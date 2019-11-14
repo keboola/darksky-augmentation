@@ -82,6 +82,7 @@ class AugmentationTest extends TestCase
             }
         }
         $this->assertEquals(2, $locationCount);
+        $this->assertEquals($data[2][3], $future);
 
         $usage = json_decode(file_get_contents($this->usageFile));
         $this->assertCount(1, $usage);
