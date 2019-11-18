@@ -104,19 +104,35 @@ class Augmentation
             }
             if ($granularity === self::GRANULARITY_DAILY) {
                 $dailyData = (array) $data['daily']->data[0];
+                try {
+                    $tz = new \DateTimeZone($data['timezone']);
+                    $dateTime = new \DateTime('@' . $dailyData['time']);
+                    $dateTime->setTimezone($tz);
+                } catch (\Exception $e) {
+                    error_log("Cannot convert date for lat: {$data['latitude']} long: {$data['longitude']} " . $e->getMessage());
+                    continue;
+                }
                 $this->saveData(
                     $data['latitude'],
                     $data['longitude'],
-                    date('Y-m-d', $dailyData['time']),
+                    $dateTime->format('Y-m-d'),
                     $dailyData,
                     $conditions
                 );
             } elseif ($granularity === self::GRANULARITY_HOURLY) {
                 foreach ($data['hourly']->data as $hourlyData) {
+                    try {
+                        $tz = new \DateTimeZone($data['timezone']);
+                        $dateTime = new \DateTime('@' . $hourlyData->time);
+                        $dateTime->setTimezone($tz);
+                    } catch (\Exception $e) {
+                        error_log("Cannot convert time for lat: {$data['latitude']} long: {$data['longitude']} " . $e->getMessage());
+                        continue;
+                    }
                     $this->saveData(
                         $data['latitude'],
                         $data['longitude'],
-                        date('Y-m-d H:i:s', $hourlyData->time),
+                        $dateTime->format('Y-m-d H:i:s'),
                         (array) $hourlyData,
                         $conditions
                     );

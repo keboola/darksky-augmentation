@@ -137,6 +137,9 @@ class Forecast
           trigger_error(__FILE__ . ':L' . __LINE__ . ": $err\n");
           $nice_responses[] = false;
         } else {
+          if (isset($decoded->code) && ($decoded->code === 403)) {
+            throw new \Keboola\DarkSkyAugmentation\InvalidApiKeyException('Invalid API Key used.');
+          }
           $nice_responses[] = $decoded;
         }
       }

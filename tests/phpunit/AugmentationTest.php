@@ -82,6 +82,7 @@ class AugmentationTest extends TestCase
             }
         }
         $this->assertEquals(2, $locationCount);
+        $this->assertEquals($data[2][3], $future);
 
         $usage = json_decode(file_get_contents($this->usageFile));
         $this->assertCount(1, $usage);
@@ -131,16 +132,22 @@ class AugmentationTest extends TestCase
         $this->assertCount(1 + 24 * 3 * 2, $data);
         $location1Count = 0;
         $location2Count = 0;
+        $date1 = 'zzz';
+        $date2 = 'zzz';
         foreach ($data as $row) {
             if ($row[1] == 49.191 && $row[2] == 16.611) {
                 $location1Count++;
+                $date1 = min($date1, $row[3]);
             }
             if ($row[1] == 50.071 && $row[2] == 14.423) {
                 $location2Count++;
+                $date2 = min($date2, $row[3]);
             }
         }
         $this->assertEquals(96, $location1Count);
         $this->assertEquals(48, $location2Count);
+        $this->assertEquals('2016-05-02 00:00:00', $date1);
+        $this->assertEquals('2016-05-01 00:00:00', $date2);
 
         $usage = json_decode(file_get_contents($this->usageFile));
         $this->assertCount(1, $usage);
