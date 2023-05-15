@@ -101,3 +101,7 @@ New bucket is created for each configuration with one table `weather`. The table
 - **date** - date and time of weather conditions validity
 - **key** - name of weather condition
 - **value** - value of weather condition
+
+## License
+
+MIT licensed, see [LICENSE](./LICENSE) file.
